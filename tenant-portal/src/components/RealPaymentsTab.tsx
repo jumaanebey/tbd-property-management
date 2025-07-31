@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Payment, TenantPortalDB, mockData } from '../lib/database';
 import { PaymentService, paymentValidation } from '../lib/paymentService';
@@ -26,11 +26,7 @@ export default function RealPaymentsTab({ tenantId }: RealPaymentsTabProps) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadPayments();
-  }, [tenantId, loadPayments]);
-
-  const loadPayments = async () => {
+  const loadPayments = useCallback(async () => {
     setLoading(true);
     try {
       // Try to load from database first
@@ -47,7 +43,11 @@ export default function RealPaymentsTab({ tenantId }: RealPaymentsTabProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [tenantId]);
+
+  useEffect(() => {
+    loadPayments();
+  }, [loadPayments]);
 
   const handlePayment = (payment: Payment) => {
     setSelectedPayment(payment);

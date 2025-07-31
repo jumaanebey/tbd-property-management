@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MaintenanceRequest, TenantPortalDB, mockData } from '../lib/database';
 
@@ -24,11 +24,7 @@ export default function RealMaintenanceTab({ tenantId }: RealMaintenanceTabProps
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadMaintenanceRequests();
-  }, [tenantId, loadMaintenanceRequests]);
-
-  const loadMaintenanceRequests = async () => {
+  const loadMaintenanceRequests = useCallback(async () => {
     setLoading(true);
     try {
       // Try to load from database first
@@ -45,7 +41,11 @@ export default function RealMaintenanceTab({ tenantId }: RealMaintenanceTabProps
     } finally {
       setLoading(false);
     }
-  };
+  }, [tenantId]);
+
+  useEffect(() => {
+    loadMaintenanceRequests();
+  }, [loadMaintenanceRequests]);
 
   const handleNewRequest = (e: React.FormEvent) => {
     e.preventDefault();
@@ -122,7 +122,8 @@ export default function RealMaintenanceTab({ tenantId }: RealMaintenanceTabProps
             } else {
               setError('Failed to cancel request');
             }
-          } catch (error) {
+          } catch (err) {
+            console.error('Error cancelling request:', err);
             setError('Failed to cancel request');
           }
         }

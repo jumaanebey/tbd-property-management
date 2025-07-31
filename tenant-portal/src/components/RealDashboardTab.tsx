@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Tenant, TenantPortalDB, mockData } from '../lib/database';
 import { PaymentService } from '../lib/paymentService';
@@ -40,11 +40,7 @@ export default function RealDashboardTab({ tenantId }: RealDashboardTabProps) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadTenantData();
-  }, [tenantId, loadTenantData]);
-
-  const loadTenantData = async () => {
+  const loadTenantData = useCallback(async () => {
     setLoading(true);
     try {
       // Try to load from database first
@@ -88,7 +84,11 @@ export default function RealDashboardTab({ tenantId }: RealDashboardTabProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [tenantId]);
+
+  useEffect(() => {
+    loadTenantData();
+  }, [loadTenantData]);
 
   const handleQuickAction = async (action: string) => {
     setError(null);

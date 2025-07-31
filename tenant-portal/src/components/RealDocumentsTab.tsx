@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Document, TenantPortalDB, mockData } from '../lib/database';
 
@@ -23,11 +23,7 @@ export default function RealDocumentsTab({ tenantId }: RealDocumentsTabProps) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadDocuments();
-  }, [tenantId, loadDocuments]);
-
-  const loadDocuments = async () => {
+  const loadDocuments = useCallback(async () => {
     setLoading(true);
     try {
       // Try to load from database first
@@ -44,7 +40,11 @@ export default function RealDocumentsTab({ tenantId }: RealDocumentsTabProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [tenantId]);
+
+  useEffect(() => {
+    loadDocuments();
+  }, [loadDocuments]);
 
   const handleDocumentAction = async (document: Document, action: string) => {
     try {
