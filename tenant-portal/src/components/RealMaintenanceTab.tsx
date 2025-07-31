@@ -26,7 +26,7 @@ export default function RealMaintenanceTab({ tenantId }: RealMaintenanceTabProps
 
   useEffect(() => {
     loadMaintenanceRequests();
-  }, [tenantId]);
+  }, [tenantId, loadMaintenanceRequests]);
 
   const loadMaintenanceRequests = async () => {
     setLoading(true);
@@ -39,8 +39,8 @@ export default function RealMaintenanceTab({ tenantId }: RealMaintenanceTabProps
         // Fallback to mock data
         setRequests(mockData.maintenanceRequests);
       }
-    } catch (error) {
-      console.error('Error loading maintenance requests:', error);
+    } catch (err) {
+      console.error('Error loading maintenance requests:', err);
       setRequests(mockData.maintenanceRequests);
     } finally {
       setLoading(false);

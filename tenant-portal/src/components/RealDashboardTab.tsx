@@ -42,7 +42,7 @@ export default function RealDashboardTab({ tenantId }: RealDashboardTabProps) {
 
   useEffect(() => {
     loadTenantData();
-  }, [tenantId]);
+  }, [tenantId, loadTenantData]);
 
   const loadTenantData = async () => {
     setLoading(true);
@@ -160,7 +160,8 @@ export default function RealDashboardTab({ tenantId }: RealDashboardTabProps) {
         message: '',
         priority: 'normal',
       });
-    } catch (error) {
+    } catch (err) {
+      console.error('Error sending message:', err);
       setError('Failed to send message. Please try again.');
     } finally {
       setSubmitting(false);
@@ -185,7 +186,8 @@ export default function RealDashboardTab({ tenantId }: RealDashboardTabProps) {
         time: '',
         description: '',
       });
-    } catch (error) {
+    } catch (err) {
+      console.error('Error submitting schedule request:', err);
       setError('Failed to submit schedule request. Please try again.');
     } finally {
       setSubmitting(false);
@@ -311,7 +313,7 @@ export default function RealDashboardTab({ tenantId }: RealDashboardTabProps) {
           Welcome back, {tenant.first_name}!
         </h2>
         <p className="text-gray-600">
-          Here's what's happening with your rental property today.
+          Here&apos;s what&apos;s happening with your rental property today.
         </p>
       </div>
 
@@ -439,7 +441,7 @@ export default function RealDashboardTab({ tenantId }: RealDashboardTabProps) {
                 </label>
                 <select
                   value={contactForm.priority}
-                  onChange={(e) => setContactForm({ ...contactForm, priority: e.target.value as any })}
+                  onChange={(e) => setContactForm({ ...contactForm, priority: e.target.value as 'low' | 'normal' | 'high' | 'urgent' })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="low">Low</option>
@@ -509,7 +511,7 @@ export default function RealDashboardTab({ tenantId }: RealDashboardTabProps) {
                 </label>
                 <select
                   value={scheduleForm.type}
-                  onChange={(e) => setScheduleForm({ ...scheduleForm, type: e.target.value as any })}
+                  onChange={(e) => setScheduleForm({ ...scheduleForm, type: e.target.value as 'maintenance' | 'inspection' | 'tour' | 'other' })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="maintenance">Maintenance</option>

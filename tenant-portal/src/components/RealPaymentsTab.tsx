@@ -28,7 +28,7 @@ export default function RealPaymentsTab({ tenantId }: RealPaymentsTabProps) {
 
   useEffect(() => {
     loadPayments();
-  }, [tenantId]);
+  }, [tenantId, loadPayments]);
 
   const loadPayments = async () => {
     setLoading(true);

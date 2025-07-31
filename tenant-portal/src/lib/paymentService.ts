@@ -2,11 +2,11 @@ import { Payment } from './database';
 
 // Stripe configuration
 const STRIPE_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_placeholder';
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder';
+
 
 // Payment service class
 export class PaymentService {
-  private static stripe: any = null;
+  private static stripe: any = null; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   // Initialize Stripe
   static async initializeStripe() {
@@ -47,7 +47,7 @@ export class PaymentService {
   static async processPayment(
     amount: number,
     paymentMethod: string,
-    description: string
+    _description: string
   ): Promise<{ success: boolean; transactionId?: string; error?: string }> {
     try {
       const stripe = await this.initializeStripe();
@@ -90,7 +90,7 @@ export class PaymentService {
   static async processPaymentWithSavedMethod(
     amount: number,
     paymentMethodId: string,
-    description: string
+    _description: string
   ): Promise<{ success: boolean; transactionId?: string; error?: string }> {
     try {
       const stripe = await this.initializeStripe();
@@ -161,7 +161,7 @@ export class PaymentService {
   }
 
   // Get saved payment methods
-  static async getSavedPaymentMethods(customerId: string): Promise<any[]> {
+  static async getSavedPaymentMethods(customerId: string): Promise<any[]> { // eslint-disable-line @typescript-eslint/no-explicit-any
     try {
       const response = await fetch(`/api/payments/saved-methods?customerId=${customerId}`);
       
@@ -232,8 +232,8 @@ export class PaymentService {
 
   // Mock payment processing for development
   static async mockProcessPayment(
-    amount: number,
-    method: string
+    _amount: number,
+    _method: string
   ): Promise<{ success: boolean; transactionId?: string; error?: string }> {
     // Simulate payment processing delay
     await new Promise(resolve => setTimeout(resolve, 2000));

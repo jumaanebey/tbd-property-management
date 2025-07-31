@@ -12,7 +12,7 @@ export default function RealDocumentsTab({ tenantId }: RealDocumentsTabProps) {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [loading, setLoading] = useState(true);
   const [showUploadModal, setShowUploadModal] = useState(false);
-  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+
   const [filter, setFilter] = useState<'all' | Document['type']>('all');
   const [uploadForm, setUploadForm] = useState({
     title: '',
@@ -25,7 +25,7 @@ export default function RealDocumentsTab({ tenantId }: RealDocumentsTabProps) {
 
   useEffect(() => {
     loadDocuments();
-  }, [tenantId]);
+  }, [tenantId, loadDocuments]);
 
   const loadDocuments = async () => {
     setLoading(true);

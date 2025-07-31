@@ -59,6 +59,7 @@ interface Payment {
   method?: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const mockMaintenanceRequests: MaintenanceRequest[] = [
   {
     id: '1',
@@ -88,6 +89,7 @@ const mockMaintenanceRequests: MaintenanceRequest[] = [
   }
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const mockPayments: Payment[] = [
   {
     id: '1',
