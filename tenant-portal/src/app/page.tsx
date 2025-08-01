@@ -9,6 +9,9 @@ import RealDashboardTab from '../components/RealDashboardTab';
 import PremiumDashboard from '../components/PremiumDashboard';
 import AdvancedAnalytics from '../components/AdvancedAnalytics';
 import MarketingAutomation from '../components/MarketingAutomation';
+import ReferralProgram from '../components/ReferralProgram';
+import GamificationHub from '../components/GamificationHub';
+import RevenueOptimizer from '../components/RevenueOptimizer';
 
 // Analytics tracking
 const trackEvent = (eventName: string, properties: Record<string, unknown> = {}) => {
@@ -388,6 +391,24 @@ export default function Home() {
       label: 'Offers',
       icon: '🎯',
       content: <MarketingAutomation tenantId="john_smith" />
+    },
+    {
+      id: 'referrals',
+      label: 'Referrals',
+      icon: '🎁',
+      content: <ReferralProgram tenantId="john_smith" />
+    },
+    {
+      id: 'gamification',
+      label: 'Rewards',
+      icon: '🏆',
+      content: <GamificationHub tenantId="john_smith" />
+    },
+    {
+      id: 'optimizer',
+      label: 'Optimizer',
+      icon: '⚡',
+      content: <RevenueOptimizer tenantId="john_smith" />
     },
     {
       id: 'property',
