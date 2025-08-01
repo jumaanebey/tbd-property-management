@@ -47,7 +47,7 @@ export class PaymentService {
   static async processPayment(
     amount: number,
     paymentMethod: string,
-    _description: string
+    _description: string // eslint-disable-line @typescript-eslint/no-unused-vars
   ): Promise<{ success: boolean; transactionId?: string; error?: string }> {
     try {
       const stripe = await this.initializeStripe();
@@ -90,7 +90,7 @@ export class PaymentService {
   static async processPaymentWithSavedMethod(
     amount: number,
     paymentMethodId: string,
-    _description: string
+    _description: string // eslint-disable-line @typescript-eslint/no-unused-vars
   ): Promise<{ success: boolean; transactionId?: string; error?: string }> {
     try {
       const stripe = await this.initializeStripe();
@@ -232,8 +232,8 @@ export class PaymentService {
 
   // Mock payment processing for development
   static async mockProcessPayment(
-    _amount: number,
-    _method: string
+    _amount: number, // eslint-disable-line @typescript-eslint/no-unused-vars
+    _method: string // eslint-disable-line @typescript-eslint/no-unused-vars
   ): Promise<{ success: boolean; transactionId?: string; error?: string }> {
     // Simulate payment processing delay
     await new Promise(resolve => setTimeout(resolve, 2000));
