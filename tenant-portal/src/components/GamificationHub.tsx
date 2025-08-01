@@ -567,7 +567,7 @@ export default function GamificationHub({ tenantId }: GamificationHubProps) {
           >
             <div className="text-6xl mb-4">🎉</div>
             <h3 className="text-xl font-bold mb-4">Challenge Completed!</h3>
-            <p className="text-gray-600 mb-4">Congratulations! You've earned your reward.</p>
+            <p className="text-gray-600 mb-4">Congratulations! You&apos;ve earned your reward.</p>
             
             <div className="bg-gradient-to-r from-green-50 to-blue-50 p-4 rounded-lg mb-4">
               <div className="text-2xl font-bold text-green-600">
