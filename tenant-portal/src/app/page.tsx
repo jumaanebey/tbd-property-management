@@ -6,6 +6,9 @@ import RealPaymentsTab from '../components/RealPaymentsTab';
 import RealMaintenanceTab from '../components/RealMaintenanceTab';
 import RealDocumentsTab from '../components/RealDocumentsTab';
 import RealDashboardTab from '../components/RealDashboardTab';
+import PremiumDashboard from '../components/PremiumDashboard';
+import AdvancedAnalytics from '../components/AdvancedAnalytics';
+import MarketingAutomation from '../components/MarketingAutomation';
 
 // Analytics tracking
 const trackEvent = (eventName: string, properties: Record<string, unknown> = {}) => {
@@ -367,6 +370,24 @@ export default function Home() {
       label: 'Dashboard',
       icon: '📊',
       content: <DashboardTab />
+    },
+    {
+      id: 'premium',
+      label: 'Premium',
+      icon: '⭐',
+      content: <PremiumDashboard tenantId="john_smith" />
+    },
+    {
+      id: 'analytics',
+      label: 'Analytics',
+      icon: '📈',
+      content: <AdvancedAnalytics tenantId="john_smith" />
+    },
+    {
+      id: 'marketing',
+      label: 'Offers',
+      icon: '🎯',
+      content: <MarketingAutomation tenantId="john_smith" />
     },
     {
       id: 'property',
