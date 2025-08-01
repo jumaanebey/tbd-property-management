@@ -46,17 +46,17 @@ export default function RealDocumentsTab({ tenantId }: RealDocumentsTabProps) {
     loadDocuments();
   }, [loadDocuments]);
 
-  const handleDocumentAction = async (document: Document, action: string) => {
+  const handleDocumentAction = async (doc: Document, action: string) => {
     try {
       switch (action) {
         case 'download':
           // Create a downloadable file
-          const response = await fetch(document.file_url);
+          const response = await fetch(doc.file_url);
           const blob = await response.blob();
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
-          a.download = document.title;
+          a.download = doc.title;
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
@@ -65,20 +65,20 @@ export default function RealDocumentsTab({ tenantId }: RealDocumentsTabProps) {
           
         case 'view':
           // Open document in new tab
-          window.open(document.file_url, '_blank');
+          window.open(doc.file_url, '_blank');
           break;
           
         case 'share':
           // Implement sharing functionality
           if (navigator.share) {
             await navigator.share({
-              title: document.title,
-              text: `Check out this document: ${document.title}`,
-              url: document.file_url
+              title: doc.title,
+              text: `Check out this document: ${doc.title}`,
+              url: doc.file_url
             });
           } else {
             // Fallback: copy to clipboard
-            await navigator.clipboard.writeText(`${document.title} - ${document.file_url}`);
+            await navigator.clipboard.writeText(`${doc.title} - ${doc.file_url}`);
             setSuccess('Document link copied to clipboard!');
           }
           break;
@@ -86,7 +86,7 @@ export default function RealDocumentsTab({ tenantId }: RealDocumentsTabProps) {
         case 'delete':
           if (confirm('Are you sure you want to delete this document?')) {
             // In a real app, you would delete from database
-            setDocuments(documents.filter(d => d.id !== document.id));
+            setDocuments(documents.filter(d => d.id !== doc.id));
             setSuccess('Document deleted successfully!');
           }
           break;
