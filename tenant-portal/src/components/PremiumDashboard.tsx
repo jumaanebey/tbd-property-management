@@ -32,7 +32,7 @@ interface UpsellOpportunity {
 export default function PremiumDashboard({ tenantId }: PremiumDashboardProps) {
   const [tenant, setTenant] = useState<Tenant | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('overview');
+
   const [showUpsellModal, setShowUpsellModal] = useState(false);
   const [selectedUpsell, setSelectedUpsell] = useState<UpsellOpportunity | null>(null);
   const [showPremiumFeatures, setShowPremiumFeatures] = useState(false);
@@ -160,7 +160,7 @@ export default function PremiumDashboard({ tenantId }: PremiumDashboardProps) {
         
         // Track conversion for analytics
         if (typeof window !== 'undefined' && 'gtag' in window) {
-          (window as any).gtag('event', 'purchase', {
+          (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', 'purchase', {
             value: feature.price,
             currency: 'USD',
             item_name: feature.title,
@@ -170,7 +170,7 @@ export default function PremiumDashboard({ tenantId }: PremiumDashboardProps) {
       } else {
         setError('Payment failed. Please try again.');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('An error occurred. Please try again.');
     }
   };

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Tenant, TenantPortalDB, mockData } from '../lib/database';
 import { PaymentService } from '../lib/paymentService';
 
@@ -212,7 +212,7 @@ export default function MarketingAutomation({ tenantId }: MarketingAutomationPro
     
     // Track offer view
     if (typeof window !== 'undefined' && 'gtag' in window) {
-      (window as any).gtag('event', 'offer_view', {
+      (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', 'offer_view', {
         offer_id: offer.id,
         offer_value: offer.finalPrice,
         currency: 'USD'
@@ -228,7 +228,7 @@ export default function MarketingAutomation({ tenantId }: MarketingAutomationPro
       if (result.success) {
         // Track conversion
         if (typeof window !== 'undefined' && 'gtag' in window) {
-          (window as any).gtag('event', 'offer_conversion', {
+          (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', 'offer_conversion', {
             offer_id: offer.id,
             offer_value: offer.finalPrice,
             currency: 'USD',

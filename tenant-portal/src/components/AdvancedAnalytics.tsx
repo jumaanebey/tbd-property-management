@@ -23,7 +23,7 @@ interface ConversionEvent {
   type: 'feature_purchase' | 'upsell_click' | 'payment' | 'support_request' | 'document_download';
   value: number;
   timestamp: Date;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 interface RevenueInsight {
@@ -145,9 +145,9 @@ export default function AdvancedAnalytics({ tenantId }: AdvancedAnalyticsProps) 
     setRevenueInsights(insights);
   };
 
-  const trackEvent = (eventType: string, value: number = 0, metadata: Record<string, any> = {}) => {
+  const trackEvent = (eventType: string, value: number = 0, metadata: Record<string, unknown> = {}) => {
     if (typeof window !== 'undefined' && 'gtag' in window) {
-      (window as any).gtag('event', eventType, {
+      (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', eventType, {
         value,
         currency: 'USD',
         user_id: tenantId,
@@ -158,7 +158,7 @@ export default function AdvancedAnalytics({ tenantId }: AdvancedAnalyticsProps) 
     // Store locally for analytics
     const event: ConversionEvent = {
       id: Date.now().toString(),
-      type: eventType as any,
+      type: eventType as ConversionEvent['type'],
       value,
       timestamp: new Date(),
       metadata
